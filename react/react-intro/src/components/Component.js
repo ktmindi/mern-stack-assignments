@@ -13,21 +13,21 @@
 //export default Component;
 //this is really the basics of a component we have a function, a return statement that returns HTML, and an export statement
 
-import Comp2 from './Comp2' //because i am already in the component folder we only need to write DOT SLASH and name of the file whereas when we were importing to the app.js file we had to write DOT SLASH/folder the file is in/file name 
+//import Comp2 from './Comp2' //because i am already in the component folder we only need to write DOT SLASH and name of the file whereas when we were importing to the app.js file we had to write DOT SLASH/folder the file is in/file name 
 
-const Component = () => {
+//const Component = () => {
 
-    return(
-        <div>
-            <h1 className="my-class">Hello World</h1>
-            <h2>more info</h2>
-            <ul><li>1</li></ul>
-            <Comp2 />
-        </div>
-    ) //JSX is transpiled into ES5 Javascript using Babel
-}
+//    return(
+//        <div>
+//            <h1 className="my-class">Hello World</h1>
+//            <h2>more info</h2>
+//            <ul><li>1</li></ul>
+//            <Comp2 />
+//        </div>
+//    ) //JSX is transpiled into ES5 Javascript using Babel
+//}
 
-export default Component;
+//export default Component;
 
 //after the component is created, we go to our app.js file and import this component
 
@@ -46,3 +46,44 @@ export default Component;
 
 
 // our return must be within ONE SINGLE <div> or <> or we will get an error
+
+//LECTURE 9-1
+
+import Comp2 from './Comp2'
+
+const Component = (props) => {
+
+    const {myData,message} = props
+
+    return(
+        <div className="my-class">
+            <h1>Hello World</h1>
+            <h2>{myData}</h2>
+            <h2>{message}</h2>
+            <Comp2 myDataCanBeAnyNameHere={myData} message={message} />
+        </div>
+    ) 
+}
+
+export default Component;
+
+//1)in our child component the first thing we do is pass props in as a parameter to the function -- this is how we can recieve the props object into this component to use it 
+// now this is where DESTRUCTURING comes into place
+//i want to be able to use the value i passed in our component hhere as part of our HTML SO
+// im  going to DESTRUCTURE -OR- pull values out of the props object and store them in their own variables to use in this component
+
+//first create a const and in curly brackets write the name of the variable used in app.js >> make it equal to the name of the parameter that we input between parenthesis at the start of the function >> now to render the data we just have to write the name of the const inbetween curly brackets
+
+//so this component was passed some data through props (the data is the string this is from props) 
+//we recieved the data 
+//then we destructured the data or pulled that data out of the props object
+// and then we rendered it on the screen
+
+//now we can pass multiple pieces of data as well by ... go to app.js file
+
+
+// if we dont destructure we will get an issue that can be fixed by writing props.myData and props.message between the curly brackets 
+// so its a good way to clean things up.
+
+//2)PROP DRILLING - i will add props to my <Comp2 statement by assigning a variable name that can be anything equal to curly bracket + name of the prop we want in comp2
+// now we go into our comp2 file 
