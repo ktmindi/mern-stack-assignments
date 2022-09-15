@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.my-class {
+  color:red;
+  border:2px solid black;
+} /* so here we can just add any css we want and then add it anywhere we want in our code*/
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
