@@ -15,7 +15,23 @@ const Form = () => {
     }
     const submitHandler = () => {
         e.preventDefault()
-        console.log(obj)
+        if(firstName && lastName && age && city){
+            if(firstName.length > 3) {
+                console.log(obj)
+            } else{
+                console.log('bad data first name not long enough')
+                setFirstName('')
+                setLastName('')
+                setAge('')
+                setCity('')
+            }
+        } else {
+            console.log('bad data do not pass go')
+            setFirstName('')
+            setLastName('')
+            setAge('')
+            setCity('')
+        }
     }
 //this submit function is actually going to send our data somewhere -- a database -- or another part of our app.. etc.
 
@@ -26,13 +42,16 @@ const Form = () => {
         <div>
             <form className="form col-4 mx-auto" onSubmit={submitHandler}>
                 <label className="form-label">First Name:</label>
-                <input type="text" onChange={(e) => setFirstName(e.target.value)} className="form-control" />
+                <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} className="form-control" />
+                {
+                    firstName.length < 3 ? <p className="text-danger">First name must be at least 3 characters</p> : null
+                }
                 <label className="form-label">Last Name:</label>
-                <input type="text" onChange={(e) => setLastName(e.target.value)} className="form-control" />
+                <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} className="form-control" />
                 <label className="form-label">Age:</label>
-                <input type="text" onChange={(e) => setAge(e.target.value)} className="form-control" />
+                <input type="text" onChange={(e) => setAge(e.target.value)} value={age} className="form-control" />
                 <label className="form-label">City:</label>
-                <input type="text" onChange={(e) => setCity(e.target.value)} className="form-control" />
+                <input type="text" onChange={(e) => setCity(e.target.value)} value={city} className="form-control" />
                 <button className="btn btn-primary mt-3">SUBMIT</button>
             </form>
         </div>
@@ -61,3 +80,10 @@ export default Form
 // to check if the function works. open inspect tool on google chrome - go to the compoents tab and you will see that we have 4 hooks set up that are empty to start with. as you type into your form, your state should be updating and 1 state under hooks should change live time as you type IMAGE NAMED HOOK check -- good debugging tool
 
 //lastly we need a submit button 
+
+
+// now validations  - this is just a messag for the user but we can still submit the form.. i have nothing that is stopping the data from going to my database.
+//                <input type="text" onChange={(e) => setFirstName(e.target.value)} className="form-control" />
+//{
+//    firstName.length < 3 ? <p>First name must be at least 3 characters: null </p>
+//}
