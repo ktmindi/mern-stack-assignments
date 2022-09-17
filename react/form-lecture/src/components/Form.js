@@ -7,10 +7,19 @@ const Form = () => {
     const [age, setAge] = useState('')
     const [city, setCity] = useState('')
 //whatever we pass into the useState between the quotes is the starting data >> this can be any sort of data -- numbers, boolean, and more complex data structures like objects, array of items, array of objects -- 
-
-    const submitHandler = () => {
-
+    const obj = {
+        firstName,
+        lastName,
+        age,
+        city
     }
+    const submitHandler = () => {
+        e.preventDefault()
+        console.log(obj)
+    }
+//this submit function is actually going to send our data somewhere -- a database -- or another part of our app.. etc.
+
+//IMPORTANT!!!! everytime we submit a form in react we need to first pass in the event object as e into the function. then write e.preventDefault() this line of code says submit the form BUT prevent us from refreshing the page. cuz i want to manually clear my state when i choose.
 
 
     return (
