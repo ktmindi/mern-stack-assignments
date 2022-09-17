@@ -5,6 +5,11 @@
 //react is a javascript library
 // react is a single page application meaning the page is never refreshed - components are swapped out  
 
+
+//npx create-react-app react-intro(name-of-app)
+
+
+
 //npx create-react-app react-intro(name-of-app)
 // will add a .git file and make it a repo if it isnt already in one
 //if it is in one then it will not create a repo
