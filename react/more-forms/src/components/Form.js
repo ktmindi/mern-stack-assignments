@@ -15,11 +15,32 @@ const Form = () => {
         password,
         confirmPassword
     }
+    const submitHandler = (e) => {
+        e.preventDefault()
+        if(firstName && lastName && age && city){
+            if(firstName.length > 3) {
+                console.log(obj)
+            } else{
+                console.log('bad data first name not long enough')
+                setFirstName('')
+                setLastName('')
+                setAge('')
+                setCity('')
+            }
+        } else {
+            console.log('bad data do not pass go')
+            setFirstName('')
+            setLastName('')
+            setAge('')
+            setCity('')
+        }
+    }
+
 
     return (
         <div>
             <div>
-                <form className="form col-4 mx-auto">
+                <form className="form col-4 mx-auto" onSubmit={() => {}}>
                     <label className="form-label">First Name:</label>
                     <input type="text" onChange={(e) => setFirstName(e.target.value)} className="form-control" />
                     {
@@ -43,6 +64,8 @@ const Form = () => {
                     <label className="form-label">Confirm Password:</label>
                     <input type="text" onChange={(e) => setConfirmPassword(e.target.value)} className="form-control" />
                     {confirmPw !== password? <p> passwords must match </p> : null }
+                    <button className="btn btn-primary mt-3">SUBMIT</button>
+                    
                 </form>
             </div>
             <div>

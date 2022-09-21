@@ -7,13 +7,14 @@ const Form = () => {
     const [age, setAge] = useState('')
     const [city, setCity] = useState('')
 //whatever we pass into the useState between the quotes is the starting data >> this can be any sort of data -- numbers, boolean, and more complex data structures like objects, array of items, array of objects -- 
+// we have setSate set up as we type into each field that particulate state gets updated with whatever user input. when user fills out all data we will need a submit handler to tell us where it will go
     const obj = {
         firstName,
         lastName,
         age,
         city
     }
-    const submitHandler = () => {
+    const submitHandler = (e) => {
         e.preventDefault()
         if(firstName && lastName && age && city){
             if(firstName.length > 3) {
@@ -37,14 +38,14 @@ const Form = () => {
 
 //IMPORTANT!!!! everytime we submit a form in react we need to first pass in the event object as e into the function. then write e.preventDefault() this line of code says submit the form BUT prevent us from refreshing the page. cuz i want to manually clear my state when i choose.
 
-
+// form col-4 mx-auto it centers everything by making the space even on both sides
     return (
         <div>
             <form className="form col-4 mx-auto" onSubmit={submitHandler}>
                 <label className="form-label">First Name:</label>
                 <input type="text" onChange={(e) => setFirstName(e.target.value)} value={firstName} className="form-control" />
                 {
-                    firstName.length < 3 ? <p className="text-danger">First name must be at least 3 characters</p> : null
+                    firstName && firstName.length < 3 ? <p className="text-danger">First name must be at least 3 characters</p> : null
                 }
                 <label className="form-label">Last Name:</label>
                 <input type="text" onChange={(e) => setLastName(e.target.value)} value={lastName} className="form-control" />
@@ -57,6 +58,8 @@ const Form = () => {
         </div>
     )
 }
+
+
 export default Form
 
 
@@ -87,3 +90,7 @@ export default Form
 //{
 //    firstName.length < 3 ? <p>First name must be at least 3 characters: null </p>
 //}
+
+
+//firstName && firstName.length < 3 ?
+//this addition of the firstName at the beginning part means that if theres nothing in the field at all makes the statement more logical. 
