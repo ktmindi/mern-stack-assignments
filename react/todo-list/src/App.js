@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import './App.css'
 
+import TodoList from "./components/TodoList"
 function App() {
   
   const [newTodo, setNewTodo] = useState("");
@@ -8,7 +9,16 @@ function App() {
 
   const handleNewSubmit = (event) => {
     event.preventDefault();
-    setTodos([...todos, newTodo]);
+    if (newTodo.length == 0) {
+      return;
+    }
+
+    const todoItem = {
+      text: newTodo,
+      complete: false
+    }
+
+    setTodos([...todos, todoItem]);
     setNewTodo("");
   };
 
@@ -20,8 +30,26 @@ function App() {
     setTodos(filteredTodos);
   }
   
+
+  const handleCheck = (idx) => {
+    const updatedTodos = todos.map((todo, i) => {
+      if (idx == i) {
+        const updatedTodo = {... todo, complete: !todo.complete};
+        return updatedTodo;
+      }
+
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  }
+
+
   return (
     <div className="App">
+      <p class="placeholder-wave">
+        <span class="placeholder col-12"></span>
+      </p>
       <form className="form col-4 mx-auto" onSubmit={(event) =>{
         handleNewSubmit(event);
       }}>
@@ -35,16 +63,13 @@ function App() {
           <button>add</button>
         </div>
       </form>
-      
+      <p class="placeholder-wave">
+        <span class="placeholder col-12"></span>
+      </p>
+
       {todos.map((todo, i) => {
         return (
-          <div key={i}>
-            <span>{todo}</span>
-            <button onClick={(event) => {
-              handleDelete(i);
-            }}>Delete</button>
-          </div>
-        );
+        <TodoList key={i} i={i} todo={todo} handleCheck={handleCheck} handleDelete={handleDelete}/>);
       })}
     </div>
   );
