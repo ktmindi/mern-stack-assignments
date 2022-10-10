@@ -58,8 +58,6 @@ const Person = props => {
     )
 }
 
-
-
 export default Person
 
 //we have to know the index to know what to delete -- we can splice things, we can use ...people with indicies or use maps 
