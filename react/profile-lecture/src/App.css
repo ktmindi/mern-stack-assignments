@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  background-color: #FAEBD7;
+  color: #000000;
+}
+
+.form {
+  background-color: #FAEBD7;
 }
 
 .App-logo {
@@ -28,11 +34,30 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  margin: 5px;
+  padding: 3px;
+  background-color: #ff4400;
+  border-radius: 5px;
+}
+
+.moMoney:hover{
+  color:pink;
+}
+
+.noMoney:hover{
+  color:yellow;
+}
+
+.bye:hover{
+  color:purple;
+}
+
+
+.like:hover{
+  color:blue;
+}
+
+.active{
+  border: 2px solid black;
 }

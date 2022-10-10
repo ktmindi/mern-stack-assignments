@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
 const Person = props => {
     const{name, height, gender, money, age, index, people, setPeople} = props
@@ -8,6 +8,7 @@ const Person = props => {
     //we dont have access to index so we need to add it to our props
     //we dont mutate our data..we make copies and change the state of the copy
     //const newPeople = [...people] is a new copy of my array 
+
     const updateMoney = (index, isMore) => {
         const newPeople = [...people]
         if(isMore) {
@@ -17,11 +18,12 @@ const Person = props => {
         }
         setPeople(newPeople)
     }
+
     const deletePerson = personNum => {
         setPeople(people.filter((person, index) => personNum !== index))
         //const newPeople = [...people]
         //setPeople(newPeople.filter((person, index) => personNum != index))
-    } //we dont have to write newPeople because filter creates a copy and will set it to setPeople
+    } //we dont have to write newPeople because filter(CREATES A NEW ARRAY) creates a copy and will set it to setPeople
 
     const likeMe = () => {
         setLikes(likes + 1)
@@ -58,6 +60,6 @@ const Person = props => {
 
 
 
-export default Person;
+export default Person
 
 //we have to know the index to know what to delete -- we can splice things, we can use ...people with indicies or use maps 

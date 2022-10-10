@@ -1,4 +1,4 @@
-import {useState} from "react"
+import { useState } from 'react'
 
 const AddPerson = ({people, setPeople}) => {
     const[name, setName] = useState('')
@@ -10,11 +10,11 @@ const AddPerson = ({people, setPeople}) => {
     const handleSubmit = e => {
         e.preventDefault()
         const person = {
-            name: name,
-            gender: gender,
-            age: age,
-            money: money,
-            height: height
+            name : name,
+            gender : gender,
+            age : age,
+            money : money,
+            height : height,
         }
         setPeople([...people, person])
         setName('')
@@ -25,26 +25,26 @@ const AddPerson = ({people, setPeople}) => {
     }
 
     return(
-        <form>
+        <form onSubmit={handleSubmit}>
             <label>
                 Name:
-                <input type="text" onChange={e=>setName(e.target.value)} value={name}/>
+                <input type="text" onChange={e=>setName(e.target.value)} value={name} />
             </label>
             <label>
                 Gender:
-                <input type="text" onChange={e=>setGender(e.target.value)} value={gender}/>
+                <input type="text" onChange={e=>setGender(e.target.value)} value={gender} />
             </label>
             <label>
                 Age:
-                <input type="number" onChange={e=>setAge(e.target.value)} value={age}/>
+                <input type="number" onChange={e=>setAge(e.target.value)} value={age} />
             </label>
             <label>
                 Money:
-                <input type="number" onChange={e=>setMoney(e.target.value)} value={money}/>
+                <input type="number" onChange={e=>setMoney(e.target.value)} value={money} />
             </label>
             <label>
                 Height:
-                <input type="number" onChange={e=>setHeight(e.target.value)} value={height}/>
+                <input type="number" onChange={e=>setHeight(e.target.value)} value={height} />
             </label>
             <input type="submit" value="Create profile" />
 
@@ -52,4 +52,4 @@ const AddPerson = ({people, setPeople}) => {
     )
 }
 
-export default AddPerson;
+export default AddPerson
