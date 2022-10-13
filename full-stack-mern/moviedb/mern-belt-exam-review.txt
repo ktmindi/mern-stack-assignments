@@ -1,0 +1,264 @@
+9-29-22 Full-Stack Day1: Back-End
+
+// a lot of the server code will be very similar so its recommended that we set this up before our exam begins..
+
+1. Create a project folder with the name lowercaseThenUpperCaseTheRest?
+
+2. Inside the MAIN project folder create two more folders and a server.js file
+	>> Server	>> Client	>> server.js
+
+3. Inside the Server folder create four more folders
+	>> config	>> controllers  	>> models	  >> routes	
+
+4. Inside the SERVER folder run [npm init -y] to create your package.json file 
+	// this file must be created first because it will keep track of all the dependencies and packages that we install that our project needs
+
+5. While still inside the SERVER folder we need to install two dependencies we know we will need. Express and mongoose. [npm i express mongoose] 
+	//remember we can install as many packages as we want in one line we just need to put a space between the packages and we can use "I" instead of writing install every time
+	//when you open up your package.json file you should now see express and mongoose in there 
+	// you will also see that we now have a node_module folder inside our server folder. [[remember you will also have a node_module folder inside your client folder]] -- because these folders are super large. When we are exporting to GitHub we want to consider putting this file into our gitignore file but that is a discussion we will later circle back around too
+
+6. Now we will go into our server.js FILE and start writing out required code the first being to import our express app
+	const express = require('express') // require == import ;; on our client(react) side we will be using import and on our server side we will be using require but they essentially mean the same thing and are used to import required packages/dependencies that we have
+	const app = express() //turn this into app which is running Express
+	const PORT = 8000 //set up a port
+
+	app.use(express.json()) //this is called middleware.. we need this middleware for our POST route so this allows for when we send a post request the data is getting added into the request ...
+	app.use(express.urlencoded({extended:true}) //...and extended equals true is allowing us to send and process nested data -- so if we are sending an object with our post request that has nested data like an array of objects with an array of objects in it this is an extra option that makes all of that work
+
+	\\Middleware for formatting and allowing POST request//
+
+	app.listen(PORT, ()=>    //this runs our application by taking two things in = the port and a callback function. 
+
+
+7. Now we will go into our configuration folder and create a file named
+	>> mongoose.config.js
+   This file is for? Connecting to mongodb with mongoose -- but we are connecting it to our application
+
+8. Inside our mongoose.config.js file we need to first import mongoose
+	const mongoose = require('mongoose')
+
+	mongoose.connect('mongoose://localhost/moviedb') //we use this line of code to connect our app with our db. We need to input the name of our db here -- because this is a PROMISE..asynchronous.. we want to handle diff cases - what happens if we get a good response and what happens if we get a bad response
+
+
+//we can pass in options for this request what are they? useNewUrl and useUnified
+//just a common convention a lot of functions will have like here.. (mongodb://localhost/moviedb)is where this function is going or connecting or whatever its doing.. and the second option can be an object with additional options (useNew useUnified)
+
+	mongoose.connect('mongodb://localhost/moviedb', {
+    		useNewUrlParser:true, 
+    		useUnifiedTopology:true
+	})
+	.then(()=>{
+    		console.log("Connected to Movie DB")
+	}).catch((err)=>{
+    		console.log(err)
+	})
+
+
+9. Now we need a schema and a model so in our models folder we need to create a file named 
+	>> movie.model.js
+ 
+	const mongoose = require('mongoose') //import mongoose again
+
+	now we have to create a schema first - then turn it into a model - and when we make it into a model what else does it turn into at the same time ? - a collection
+
+	const MovieSchema = mongoose.Schema()
+	const MovieSchema = new mongoose.Schema() [we can also add in the word new]
+
+	//what do we pass into this function? An object - a schema is an object thats just saying what format the data is going to take
+
+	//we want to add complexity and extra things about our fields in our model that are going to interact with out front end and we will see that next week.
+
+	//If we are doing multiple things with this field besides just specifying the type then we pass an object to that field and then the first argument will be type string and then we can add any other options underneath it..  
+
+//we can store an image for the poster of the movie by storing the http image source from the internet. So we would put boxArt: String 
+//if we want to store a date we can store it as a string and format it later.
+
+//when we pass in the option timestamps:true at the end.. this means that anytime we go to add a new movie -- besides getting an ID it will also automatically get a created at and updated at field which is 
+
+//lastly we need to.. turn it into a model using .. 
+Const Movie = mongoose.model(two arguments here that HAVE to be in the correct order)
+1st == singular version of the collection name -- name that we are essentially giving the model and the collection in the database  
+2nd == the blueprint / what structure we are using == MovieSchema
+
+ Then we need to export it
+	module.exports = Movie
+
+//TO TEST WE CAN USE POSTMAN -- ONCE WE SET UP ROUTES.
+
+
+10. Next we should create ROUTES (before controllers) but before we can do this.. we need to create a file inside our controllers folder named 
+	>>movie.controllers.js 
+Then Inside our routes folder create a file named
+	>> movie.routes.js 
+To set up the routes file we need to first import controllers using
+	const MovieController = require('../controllers/movie.controlers')
+We do this so we can connect the two files. So we can connect our route to the correct controller function.
+
+Now we do module.exports = (app) => {}  // module.exports is a function that will take in app 
+// app is our Express
+Remember that module.exports is the function that we use to export things in files so we can use them elsewhere by importing in other places.
+
+// now we have to specify our routes. Every app will have very similar functions based on CRUD functions. So what are some routes we will want? 
+
+	module.exports = (app) => {
+    		//GET ALL MOVIES
+
+    		//GET ONE MOVIE
+    		//CREATE NEW MOVIE
+    		//UPDATE MOVIE
+    		//DELETE MOVIE
+	}
+
+// these are the basic functionalities that we will see repeatedly on many apps. 
+
+// always make sure you start with a slash when you write out routes esp for the server side routes. The other kind of routes that we have are front end routes/client routes -- what tool do we use to define client-side routes? "React rather"
+
+//app.get('/api/allMovies',) <-- theres a second piece here..why? Because its a function -- so why dont we write ../allMovies',()=>{}) ? Because we want to separate responsibilities into different/separate files
+
+
+//. app.get('/api/allMovies',MovieController.getMovies)
+				//we write MovieController because that is the file we have imported that will hold our functions. So first we reference the file = MovieController and then call on a function that we will write(have not written yet) 
+So we will actually have to declare that function but we will get there
+
+
+// our next route that we need to write out is our get one movie route
+	app.get('/api/movie/:id')
+		//:id -- this is called a path variable or a parameter
+	// here we will essentially pull the path variable out of the URL and use it to grab the specific data that correlates with that path variable from the DB and 
+
+const MovieController = require('../controllers/movie.controllers')
+
+	module.exports = (app) => {
+    		//GET ALL MOVIES
+    		app.get('/api/allMovies',MovieController.getMovies)
+    		//GET ONE MOVIE
+    		app.get('/api/movie/:id',MovieController.getOneMovie)
+    		//CREATE NEW MOVIE -- we know that on the front end we will most likely be using a form to input data into our DB so keeping that in mind how do we write the route?
+    		app.post('/api/addMovie', MovieController.addMovie)
+    		//UPDATE MOVIE
+    		app.put('/api/update/:id', MovieController.updateMovie)
+    		//DELETE MOVIE
+    		app.delete('/api/delete/:id',MovieController.deleteMovie)
+	}
+
+
+11. Now that we have all the routes set up. We need to set up our controllers - we have all these routes theres a path and it says we run these functions but we haven't defined them yet so lets go and define the functions 
+
+Go to our movie.controllers.js file and first thing we need to do is? IMPORT THE MODEL
+	Why? Cuz were going to be using that model to specify what we're going to be doing to the database from these functions 
+
+	const Movie = require('../models/movie.model
+
+//so Movie is referring to the collection in the database and we're running mongoose functions on the collection so that we can add, update, delete, and read movies in that collection
+
+//there are different ways you can structure the module.exports set up. 
+	In the previous lecture I show you guys how to do it where it was kind of like each function was like this
+	const myFunction = 
+
+	and at the end I did 
+
+	module.exports = {
+		myFunction <-- and I passed in all of my exports here
+	}
+
+//in the platform they showed you a way where it was like this
+	module.exports = (req, res) <-- so there would be multiple module.exports on the screen
+
+
+But another way we can do it is .. 
+
+	model.exports = {
+		getAllMovies:(req, res)=> {
+			Movie.find()
+			.then((result)=>{
+				res.json()           //we need this res.json line of code because whatever you grab from the query needs to be converted to a JSON file in order for it to display in the front end.
+			}).catch((err)=>{
+				console.log(err)
+			})
+		},
+		getOneMovie:(req, res)=> {
+		
+		},
+		addMovie:(req, res)=> {
+		
+		},
+		updateMovie:(req, res)=> {
+		
+		},
+		deleteMovie:(req, res)=> {
+		
+		},
+	}
+
+	like this where each of the functions will be their own key value pair
+
+
+
+Always remember that for this code we need the underscore because we need to specify which field on the model we're looking for so we're saying we're looking for a field where the ID equals {_id:req.params.id}) 
+
+	// why do we have access to this req.params.id? Where does it come from?
+	its from the path variable .. anytime we use a colon in one of our routes we automatically have access to this req.params.id on the request object inside of a field called params and whatever we called it colon ID is going to be a called ID in that object
+
+	updateMovie:(req,res)=>{
+        	Movie.updateOne({_id:req.params.id})
+        	.then((result)=>{
+            		res.json()
+       		}).catch((err)=>{
+            		console.log(err)
+        }) //we will make these more complex over time.. but more often then most this is adequate
+    },
+
+		// we also have to add what we are updating the movie with to this function
+
+
+
+	Movie.updateOne({_id:req.params.id}) so we're going to update one we're which one were updating and then we have to specify rec.body because that is the data we're passing to updates 
+
+
+	Movie.updateOne({_id:req.params.id}, req.body) 
+
+
+
+
+12. Once we have all of our routes set up - our model - controller - and our connection we need to 
+
+	IMPORT your CONFIG into server.js file 
+
+	IMPORT your ROUTES into server.js file
+
+
+Now we can run this and see if it works by testing the db using postman.
+To test this. Cd into your project folder and run the server.js file in your terminal
+
+	nodemon server.js
+
+
+
+
+
+
+
+
+"npm install react-router-dom" install this dependency for each project that needs routing from inside the project folder
+
+
+
+
+waterproof mascara - 
+eye liner - cobalt - waterproof
+eye shadow primer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
