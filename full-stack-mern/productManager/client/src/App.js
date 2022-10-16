@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Form from './components/Form'
+import Main from './views/Main'
+import OneProduct from "./components/OneProduct";
 
 
 function App() {
@@ -9,7 +9,8 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/form" element={<Form />}/>
+          <Route path="/" element={<Main />} />
+          <Route path="/product/:id" element={<OneProduct />}/>
         </Routes>
       </BrowserRouter>
     </div>
