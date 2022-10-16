@@ -1,6 +1,7 @@
 import React, { useState,useEffect} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 
 const OneProduct = (props) => {
@@ -11,7 +12,6 @@ const OneProduct = (props) => {
     useEffect(() => {
         axios.get(`http://localhost:8000/api/product/${id}`)
         .then((res) =>{
-            console.log(res.data);
             setOneProduct(res.data);
         }).catch((err) => {
             console.log(err)
@@ -34,7 +34,8 @@ const OneProduct = (props) => {
             <h2>{oneProduct.title}</h2>
             <p>Price: ${oneProduct.price}</p>
             <p>Description: {oneProduct.description}</p>
-            <button onClick={deleteHandler}>Delete</button>
+            <Link to={`/product/edit/${oneProduct._id}`}>Edit Product</Link>
+            <button className="btn btn-danger" onClick={deleteHandler}>Delete</button>
         </div>
     )
 }

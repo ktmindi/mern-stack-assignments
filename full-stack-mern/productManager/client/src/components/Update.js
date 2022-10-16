@@ -14,7 +14,7 @@ const Update = (props) => {
     const [headerTitle, setHeaderTitle] = useState("")
 
     useEffect(()=> {
-        axios.get(`http://localhost:8000/api/products/${id}`)
+        axios.get(`http://localhost:8000/api/product/${id}`)
         .then((res) => {
             console.log(res.data);
             setTitle(res.data.title);
