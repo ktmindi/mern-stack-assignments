@@ -11,6 +11,7 @@ const Form = () => {
     const [releaseYear,setReleaseYear] = useState('')
     const [duration,setDuration] = useState('')
     const [image,setImage] = useState('')
+    const [errors,setErrors] = useState({})
 
     const navigate = useNavigate()
 
@@ -25,10 +26,11 @@ const Form = () => {
             duration, 
             boxArt:image
         }).then((res)=>{
-            console.log(res)
+            console.log("From catch on back", res)
             navigate('/movielist')
         }).catch((err)=>{
-            console.log(err)
+            console.log("In catch on front", err)
+            setErrors(err.response.data.errors)
         })
     }
 
@@ -37,18 +39,27 @@ const Form = () => {
             <form onSubmit={submitHandler}>
                 <label className="form-label">Title:</label>
                 <input type ="text" className="form-control" value={title} onChange={(e)=>setTitle(e.target.value)} />
+                { errors.title ? <span className="text-danger">{errors.title.message}</span> : null} <br></br>
+
+
                 <label className="form-label">Director:</label>
                 <input type ="text" className="form-control" value={director} onChange={(e)=>setDirector(e.target.value)} />
+                { errors.director ? <span className="text-danger">{errors.director.message}</span> : null} <br></br>
+
                 <label className="form-label">Rating:</label>
                 <select className="form-control" value={rating} onChange={(e)=>setRating(e.target.value)}>
+                    <option>Select A Rating</option>
                     <option value="G">G</option>
                     <option value="PG">PG</option>
                     <option value="PG-13">PG-13</option>
                     <option value="R">R</option>
                     <option value="NC-17">NC-17</option>
                 </select>
+                { errors.rating ? <span className="text-danger">{errors.rating.message}</span> : null} <br></br>
+
                 <label className="form-label">Genre:</label>
                 <select className="form-control" value={genre} onChange={(e)=>setGenre(e.target.value)}>
+                    <option>Select a Genre</option>
                     <option value="Comedy">Comedy</option>
                     <option value="Drama">Drama</option>
                     <option value="Horror">Horror</option>
@@ -67,12 +78,20 @@ const Form = () => {
                     <option value="Kung-Fu">Kung-Fu</option>
                     <option value="Bollywood">Bollywood</option>
                 </select>
+                { errors.genre ? <span className="text-danger">{errors.genre.message}</span> : null} <br></br>
+
                 <label className="form-label">Release Year:</label>
                 <input type ="number" className="form-control" value={releaseYear} onChange={(e)=>setReleaseYear(e.target.value)} />
+                { errors.releaseYear ? <span className="text-danger">{errors.releaseYear.message}</span> : null} <br></br>
+
                 <label className="form-label">Duration:</label>
                 <input type ="text" className="form-control" value={duration} onChange={(e)=>setDuration(e.target.value)} />
+                { errors.duration ? <span className="text-danger">{errors.duration.message}</span> : null} <br></br>
+
                 <label className="form-label">Image:</label>
                 <input type ="text" className="form-control" value={image} onChange={(e)=>setImage(e.target.value)} />
+                { errors.boxArt ? <span className="text-danger">{errors.boxArt.message}</span> : null} <br></br>
+
                 <button type="submit" className="btn btn-info mt-3">Create Movie</button>
 
             </form>

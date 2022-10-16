@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { useParams, useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 const OneMovie = () => {
 
@@ -36,7 +35,7 @@ const deleteHandler = (id) => {
             <p>Director: {movie.director}</p>
             <p>Rating: {movie.rating}</p>
             <p>Genre: {movie.genre}</p>
-            <Link to={`/edit/${movie._id}`}>Edit Movie</Link>
+            <button className="btn btn-info m-1"><Link to={`/edit/${movie._id}`} style={{textDecoration:"none"}}>Edit Movie</Link></button>
             <button className="btn btn-danger" onClick={(e) => deleteHandler(movie._id)}>Delete Movie</button>
 
         </div>

@@ -23,7 +23,7 @@ const MovieList = () => {
             {
                 list.map((movie)=>(
                     <div className=" col col-4 mt-3">
-                    <img src={movie.boxArt} className="col-6 border"/>
+                    <img src={movie.boxArt} className="col-6 border border-5 border-warning"/><br></br>
                     <Link to={`/onemovie/${movie._id}`}>{movie.title}</Link>
                     </div>
                 ))
@@ -32,4 +32,4 @@ const MovieList = () => {
     )
 }
 
-export default MovieList;
+export default MovieList
