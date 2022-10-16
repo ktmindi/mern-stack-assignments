@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import {useParams, useNavigate } from 'react-router-dom'
 
-const Form = () => {
+const EditForm = () => {
 
     const [title,setTitle] = useState('')
     const [director,setDirector] = useState('')
@@ -12,20 +12,36 @@ const Form = () => {
     const [duration,setDuration] = useState('')
     const [image,setImage] = useState('')
 
+    const{id} = useParams()
+
     const navigate = useNavigate()
 
-    const submitHandler = (e) => {
+    useEffect(()=>{
+        axios.get(`http://localhost:8000/api/movie/${id}`)
+        .then((res)=>{
+            setTitle(res.data.title)
+            setDirector(res.data.director)
+            setRating(res.data.rating)
+            setGenre(res.data.genre)
+            setReleaseYear(res.data.releaseYear)
+            setDuration(res.data.duration)
+            setImage(res.data.boxArt)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    },[])
+
+    const submitHandler = (e) =>{
         e.preventDefault()
-        axios.post('http://localhost:8000/api/addMovie',{
-            title, 
-            director, 
-            rating, 
-            genre, 
-            releaseYear, 
-            duration, 
+        axios.put(`http://localhost:8000/api/update/${id}`,{
+            title,
+            director,
+            rating,
+            genre,
+            releaseYear,
+            duration,
             boxArt:image
         }).then((res)=>{
-            console.log(res)
             navigate('/movielist')
         }).catch((err)=>{
             console.log(err)
@@ -78,6 +94,6 @@ const Form = () => {
             </form>
         </div>
     )
-}
+    }
 
-export default Form
+export default EditForm

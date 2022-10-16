@@ -511,17 +511,148 @@ so now we have successfully grabbed the data from the database we've stored it i
 
 
 
+13. Now I want to make it so that when I submit the form it automatically takes me to the list of movies route to do this first we will import useNavigate to the form.js file
+	import { useNavigate } from 'react-router-dom'
+
+
+Then we will create a const navigate = useNavigate()
+
+
+
+Then we will go to our submit handler and if our promise is successful in the handle we will add 
+	navigate('/movielist')
 
 
 
 
 
 
+
+
+//what is unique about nav link? Class active 
+So we can go into our app.css and 
+	.active{
+ 		 color: red;
+	}
+So whichever link is active should turn red.. its not working will fix next time
+
+
+Issue was one of our routes was just a single slash. So 
+
+Adding 
+
+    let activeStyle ={
+        colot: "red",
+    };
+
+And
+
+<NavLink to="/movielist" className="m-3" style={({ isActive }) => isActive ? activeStyle : undefined}>Home</NavLink>
+            <NavLink to="/form" style={({ isActive }) => isActive ? activeStyle : undefined}>Form</NavLink>
+
+Into our navbar.js file fixes this issue
 
 ___________________________________________________________________________________________
 
+10-05-22 Full stack day 3
+[update and delete on front end]
 
-"npm install react-router-dom" install this dependency for each project that needs routing from inside the project folder
+1. we want to be able to view more detail about one movie when we click on the image or title of the movie from my home/list page how do we do that?
+
+We will first create a new component for the data for one individual movie 
+	>> OneMovie.js
+
+Now we want to link from react-router-dom -- this will be coming from our movie list // movielist.js so what we are going to do is .. 
+
+	// go into movielist.js and
+
+	import { Link } from 'react-router-dom'
+	
+	
+	
+	then we are going to change the movie.title into a link 
+
+<Link to="
+
+Create a new route that will render the movie page inside app.js file 
+	<Route path="/onemovie/:id element={MovieList />} />
+
+
+
+
+
+
+2. Add delete function 
+
+
+
+
+
+3. Add update function 
+
+	>> we will create a new component called EditForm.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
