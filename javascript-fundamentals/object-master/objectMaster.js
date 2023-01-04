@@ -98,7 +98,31 @@ const secondFlying = moreThanOneType.filter(p => p.types[1] === "flying")
 const firstType = secondFlying.map(p => p.types[0])
 console.log(firstType)
 
+const something = (arrOfPokemon) => {
+    let firstType = [];
+    arrOfPokemon.forEach(poke => {
+        // console.log(poke.types)
+        if (poke.types[ 1 ] === "flying") {
+            firstType.push(poke.types[ 0 ])
+        }
+    })
+    return firstType
+}
+
+console.log(something(pokémon));
+
 // count of the number of pokemon that are normal type
 const normal = pokémon.filter(p => p.types.includes("normal"));
 console.log(normal)
 console.log(normal.length)
+
+const normal2 = (arrOfPokemon) => {
+    let count = 0;
+    arrOfPokemon.forEach(poke => {
+        if (poke.types.includes("normal")) {
+            count++;
+        }
+    })
+    return count;
+}
+console.log(normal2(pokémon))
